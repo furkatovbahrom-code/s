@@ -1,57 +1,41 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  color: #111;
-}
+document.querySelectorAll(".product").forEach(product => {
 
-.header {
-  text-align: center;
-  padding: 20px;
-}
+  const price = parseInt(product.dataset.price);
+  const name = product.dataset.name;
 
-.products {
-  padding: 15px;
-}
+  const minus = product.querySelector(".minus");
+  const plus = product.querySelector(".plus");
+  const countEl = product.querySelector(".count");
+  const totalEl = product.querySelector(".total-price");
+  const buyBtn = product.querySelector(".buy");
 
-.product {
-  background: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 14px;
-}
+  let count = 1;
 
-.price {
-  margin: 10px 0;
-}
+  plus.addEventListener("click", () => {
+    count++;
+    countEl.textContent = count;
+    totalEl.textContent = count * price;
+  });
 
-.quantity {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+  minus.addEventListener("click", () => {
+    if (count > 1) {
+      count--;
+      countEl.textContent = count;
+      totalEl.textContent = count * price;
+    }
+  });
 
-.quantity button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  background: #eaeaea;
-}
+  buyBtn.addEventListener("click", () => {
 
-.buy {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: #16a34a;
-  color: white;
-  font-size: 16px;
-  margin-top: 10px;
-}
+    const total = count * price;
 
-.total {
-  margin-top: 10px;
-  font-weight: bold;
-}
+    const message = Сәлеметсіз бе! Мен ${name} өнімінен ${count} дана алғым келеді. Жалпы баға: ${total} ₸;
+
+    const phoneNumber = "77000000000"; // O'ZINGNI NOMERINGNI YOZ
+
+    const url = https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)};
+
+    window.open(url, "_blank");
+  });
+
+});
