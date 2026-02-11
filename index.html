@@ -96,6 +96,11 @@
   <h1>B-EPIC Shop</h1>
   <p>Қазақстан бойынша сапалы өнімдер</p>
 
+<div id="openBrowser" style="background:#ffeded;padding:12px;border-radius:10px;margin-top:10px;font-size:14px;">
+Егер WhatsApp ашылмаса, оң жақ жоғарыдағы үш нүктені басып, 
+<strong>"Браузерде ашу"</strong> таңдаңыз.
+</div>
+  
   <div class="top-buttons">
     <a href="https://www.tiktok.com/@bepic_team_" target="_blank">🎵 TikTok B-EPIC</a>
     <a href="https://www.tiktok.com/@beco_team_" target="_blank">🎵 TikTok B-ECO</a>
@@ -218,6 +223,10 @@ document.querySelectorAll(".product").forEach(product => {
     window.open(url, "_blank");
   };
 
+if (navigator.userAgent.includes("TikTok")) {
+  alert("WhatsApp ашу үшін сайтты браузерде ашыңыз.");
+}
+  
 });
 </script>
 
