@@ -4,22 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>B-EPIC Shop</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background: white;
+    }
+
+    .top-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .top-buttons a {
+      text-decoration: none;
+      background: #16a34a;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .products {
+      padding: 15px;
+    }
+
+    .product {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 10px 0;
+    }
+
+    .quantity button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      font-size: 20px;
+      background: #ddd;
+    }
+
+    .buy {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #16a34a;
+      color: white;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #16a34a;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
 
 <header class="header">
   <h1>B-EPIC Shop</h1>
   <p>Қазақстан бойынша сапалы өнімдер</p>
+
+  <div class="top-buttons">
+    <a href="https://tiktok.com/@youraccount1" target="_blank">🎵 TikTok 1</a>
+    <a href="https://tiktok.com/@youraccount2" target="_blank">🎵 TikTok 2</a>
+    <a href="tel:+77000000000">📞 Қоңырау шалу</a>
+  </div>
 </header>
 
 <section class="products">
 
-  <!-- Fuel Tabs -->
-  <div class="product" data-price="10000">
+  <div class="product" data-name="Fuel Tabs" data-price="10000">
     <h2>Fuel Tabs</h2>
     <p>Жанармай тиімділігін арттырады</p>
-    <div class="price">1 дана: 10000 ₸</div>
+    <div>1 дана: 10000 ₸</div>
     <div class="quantity">
       <button class="minus">−</button>
       <span class="count">1</span>
@@ -29,11 +118,10 @@
     <button class="buy">Сатып алу</button>
   </div>
 
-  <!-- Elev8 -->
-  <div class="product" data-price="15000">
+  <div class="product" data-name="Elev8" data-price="15000">
     <h2>Elev8</h2>
     <p>Энергия мен сергектік береді</p>
-    <div class="price">1 дана: 15000 ₸</div>
+    <div>1 дана: 15000 ₸</div>
     <div class="quantity">
       <button class="minus">−</button>
       <span class="count">1</span>
@@ -43,11 +131,10 @@
     <button class="buy">Сатып алу</button>
   </div>
 
-  <!-- BiCardio -->
-  <div class="product" data-price="14000">
+  <div class="product" data-name="BiCardio" data-price="14000">
     <h2>BiCardio</h2>
     <p>Жүрек-қан тамырларын қолдайды</p>
-    <div class="price">1 дана: 14000 ₸</div>
+    <div>1 дана: 14000 ₸</div>
     <div class="quantity">
       <button class="minus">−</button>
       <span class="count">1</span>
@@ -57,11 +144,10 @@
     <button class="buy">Сатып алу</button>
   </div>
 
-  <!-- Acceler8 Sleep -->
-  <div class="product" data-price="13000">
+  <div class="product" data-name="Acceler8 Sleep" data-price="13000">
     <h2>Acceler8 Sleep</h2>
     <p>Ұйқы сапасын жақсартады</p>
-    <div class="price">1 дана: 13000 ₸</div>
+    <div>1 дана: 13000 ₸</div>
     <div class="quantity">
       <button class="minus">−</button>
       <span class="count">1</span>
@@ -71,11 +157,10 @@
     <button class="buy">Сатып алу</button>
   </div>
 
-  <!-- Acceler8 Restore -->
-  <div class="product" data-price="16000">
+  <div class="product" data-name="Acceler8 Restore" data-price="16000">
     <h2>Acceler8 Restore</h2>
     <p>Қалпына келуді тездетеді</p>
-    <div class="price">1 дана: 16000 ₸</div>
+    <div>1 дана: 16000 ₸</div>
     <div class="quantity">
       <button class="minus">−</button>
       <span class="count">1</span>
@@ -87,6 +172,50 @@
 
 </section>
 
-<script src="script.js"></script>
+<a href="https://wa.me/77000000000" class="whatsapp-float">💬</a>
+
+<script>
+document.querySelectorAll(".product").forEach(product => {
+
+  const price = parseInt(product.dataset.price);
+  const name = product.dataset.name;
+
+  const minus = product.querySelector(".minus");
+  const plus = product.querySelector(".plus");
+  const countEl = product.querySelector(".count");
+  const totalEl = product.querySelector(".total-price");
+  const buyBtn = product.querySelector(".buy");
+
+  let count = 1;
+
+  plus.onclick = () => {
+    count++;
+    countEl.textContent = count;
+    totalEl.textContent = count * price;
+  };
+
+  minus.onclick = () => {
+    if (count > 1) {
+      count--;
+      countEl.textContent = count;
+      totalEl.textContent = count * price;
+    }
+  };
+
+  buyBtn.onclick = () => {
+    const total = count * price;
+
+    const message = `Сәлеметсіз бе! Мен ${name} өнімінен ${count} дана алғым келеді. Жалпы баға: ${total} ₸`;
+
+    const phoneNumber = "77000000000"; // ОСЫ ЖЕРГЕ ӨЗ НӨМІРІҢДІ ЖАЗ
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+  };
+
+});
+</script>
+
 </body>
 </html>
