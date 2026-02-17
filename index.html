@@ -116,15 +116,6 @@
     0 2px 0 #166534,
     0 4px 8px rgba(0,0,0,0.2);
 }
-    
-    .whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-    }
 
 #loader {
   position: fixed;
@@ -160,14 +151,52 @@
     visibility: hidden;
   }
 } 
-    
+
+    #introScreen {
+  position: fixed;
+  inset: 0;
+  background: url("file_00000000aab07208bdeb40700a6b00c5.png") center/cover no-repeat;
+  display: none; /* boshida ko‘rinmaydi */
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+
+#introScreen h1 {
+  color: white;
+  font-size: 32px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+#introScreen.show {
+  display: flex;
+}
+
+#introScreen.hide {
+  animation: fadeOut 1s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
   </style>
 </head>
 <body>
-
+  
 <div id="loader">
   <img src="photo_2026-02-13_18-18-27.jpg" alt="B-EPIC Logo">
 </div>
+
+  <!-- INTRO IMAGE SCREEN -->
+<div id="introScreen">
+  <h1>Қош келдіңіз</h1>
+</div>
+
+<audio id="introAudio" src="Импортировано.m4a"></audio>
 
 <header class="header">
   <h1>B-EPIC Shop</h1>
@@ -184,6 +213,13 @@
      style="width:26px; vertical-align:middle; margin-right:8px;">
 TikTok B-EPIC
     </a>
+
+     <a href="https://wa.me/77752709238" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+         style="width:26px; vertical-align:middle; margin-right:8px;">
+    WhatsApp
+  </a>
+    
     <a href="https://www.tiktok.com/@beco_team_" target="_blank">
 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" 
      style="width:26px; vertical-align:middle; margin-right:8px;">
@@ -262,11 +298,6 @@ TikTok B-EPIC
 
 </section>
 
-<a href="https://wa.me/77752709238" class="whatsapp-float">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
-       style="width:45px;">
-</a>
-
   © 2026 — <b>Bahrom Furkatov</b>, 
          Негізін қалаушы
 </footer>
@@ -314,7 +345,41 @@ document.querySelectorAll(".product").forEach(product => {
 if (navigator.userAgent.includes("TikTok")) {
   alert("WhatsApp ашу үшін сайтты браузерде ашыңыз.");
 }
-  
+
+ const loader = document.getElementById("loader");
+const introScreen = document.getElementById("introScreen");
+const audio = document.getElementById("introAudio");
+
+let played = false;
+
+// Loader tugagandan keyin intro chiqadi
+setTimeout(() => {
+  introScreen.classList.add("show");
+}, 3000); // loader necha sekund bo‘lsa shunga teng
+
+introScreen.addEventListener("click", () => {
+
+  if (played) return;
+  played = true;
+
+  audio.volume = 0;
+  audio.play();
+
+  // sekin ko‘tariladi
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 0.5) {
+      vol += 0.05;
+      audio.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+
+  introScreen.classList.add("hide");
+
+});
+
 });
 </script>
 
