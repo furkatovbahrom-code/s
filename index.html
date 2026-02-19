@@ -374,50 +374,6 @@ TikTok B-EPIC
     <div class="total">Жалпы: <span class="total-price">22500</span> ₸</div>
     <button class="buy">Сатып алу 🛒</button>
   </div>
-
-
-const bonusBtn = document.getElementById("bonusBtn");
-const bonusModal = document.getElementById("bonusModal");
-const closeBonus = document.querySelector(".closeBonus");
-const bonusTable = document.getElementById("bonusTable");
-
-// Qo‘lda yozadigan ro‘yxat
-let customers = [
-  { name: "Ali", orders: 2 },
-  { name: "Madina", orders: 1 },
-  { name: "Ruslan", orders: 3 }
-];
-
-function renderTable() {
-  bonusTable.innerHTML = "";
-
-  customers.forEach(customer => {
-    let points = customer.orders * 25;
-
-    bonusTable.innerHTML += 
-      <tr>
-        <td>${customer.name}</td>
-        <td>${customer.orders}</td>
-        <td>${points}</td>
-      </tr>
-    ;
-  });
-}
-
-bonusBtn.onclick = () => {
-  bonusModal.style.display = "flex";
-  renderTable();
-};
-
-closeBonus.onclick = () => {
-  bonusModal.style.display = "none";
-};
-
-window.onclick = (e) => {
-  if (e.target === bonusModal) {
-    bonusModal.style.display = "none";
-  }
-};
   
 </section>
 
@@ -503,6 +459,49 @@ introScreen.addEventListener("click", () => {
 
 });
 
+  const bonusBtn = document.getElementById("bonusBtn");
+const bonusModal = document.getElementById("bonusModal");
+const closeBonus = document.querySelector(".closeBonus");
+const bonusTable = document.getElementById("bonusTable");
+
+// Qo‘lda yozadigan ro‘yxat
+let customers = [
+  { name: "Ali", orders: 2 },
+  { name: "Madina", orders: 1 },
+  { name: "Ruslan", orders: 3 }
+];
+
+function renderTable() {
+  bonusTable.innerHTML = "";
+
+  customers.forEach(customer => {
+    let points = customer.orders * 25;
+
+    bonusTable.innerHTML += 
+      <tr>
+        <td>${customer.name}</td>
+        <td>${customer.orders}</td>
+        <td>${points}</td>
+      </tr>
+    ;
+  });
+}
+
+bonusBtn.onclick = () => {
+  bonusModal.style.display = "flex";
+  renderTable();
+};
+
+closeBonus.onclick = () => {
+  bonusModal.style.display = "none";
+};
+
+window.onclick = (e) => {
+  if (e.target === bonusModal) {
+    bonusModal.style.display = "none";
+  }
+};
+  
 });
 </script>
 
