@@ -183,9 +183,88 @@
   }
 }
 
+    #bonusBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #16a34a;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10000;
+  font-weight: bold;
+}
+
+#bonusModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+}
+
+.bonus-content {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.bonus-content h2 {
+  text-align: center;
+}
+
+.closeBonus {
+  float: right;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #16a34a;
+  color: white;
+}
+    
   </style>
 </head>
 <body>
+
+  <!-- BONUS BUTTON -->
+<div id="bonusBtn">⭐ Бонус</div>
+
+<!-- BONUS MODAL -->
+<div id="bonusModal">
+  <div class="bonus-content">
+    <span class="closeBonus">✖</span>
+    <h2>Бонус кестесі</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Аты</th>
+          <th>Тапсырыс саны</th>
+          <th>Балл</th>
+        </tr>
+      </thead>
+      <tbody id="bonusTable"></tbody>
+    </table>
+  </div>
+</div>
   
 <div id="loader">
   <img src="photo_2026-02-13_18-18-27.jpg" alt="B-EPIC Logo">
@@ -296,6 +375,50 @@ TikTok B-EPIC
     <button class="buy">Сатып алу 🛒</button>
   </div>
 
+
+const bonusBtn = document.getElementById("bonusBtn");
+const bonusModal = document.getElementById("bonusModal");
+const closeBonus = document.querySelector(".closeBonus");
+const bonusTable = document.getElementById("bonusTable");
+
+// Qo‘lda yozadigan ro‘yxat
+let customers = [
+  { name: "Ali", orders: 2 },
+  { name: "Madina", orders: 1 },
+  { name: "Ruslan", orders: 3 }
+];
+
+function renderTable() {
+  bonusTable.innerHTML = "";
+
+  customers.forEach(customer => {
+    let points = customer.orders * 25;
+
+    bonusTable.innerHTML += 
+      <tr>
+        <td>${customer.name}</td>
+        <td>${customer.orders}</td>
+        <td>${points}</td>
+      </tr>
+    ;
+  });
+}
+
+bonusBtn.onclick = () => {
+  bonusModal.style.display = "flex";
+  renderTable();
+};
+
+closeBonus.onclick = () => {
+  bonusModal.style.display = "none";
+};
+
+window.onclick = (e) => {
+  if (e.target === bonusModal) {
+    bonusModal.style.display = "none";
+  }
+};
+  
 </section>
 
   © 2026 — <b>Bahrom Furkatov</b>, 
