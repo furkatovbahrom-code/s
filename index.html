@@ -7,16 +7,29 @@
 
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f0f0f;
+  color: #f5f5f5;
     }
 
     .header {
-      text-align: center;
-      padding: 20px;
-      background: white;
-    }
+  position: relative;
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(180deg, #111, #1a1a1a);
+  border-bottom: 1px solid #d4af37;
+}
+
+.header h1 {
+  color: #d4af37;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.header p {
+  color: #ccc;
+}
 
     .top-buttons {
       display: flex;
@@ -32,10 +45,18 @@
   .product {
   position: relative;
   padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 16px;
+  margin-bottom: 25px;
+  border-radius: 18px;
   overflow: hidden;
-  color: white;
+  background: #1a1a1a;
+  border: 1px solid #d4af37;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(212,175,55,0.3);
 }
 
 .product::after {
@@ -79,12 +100,14 @@
     }
 
     .quantity button {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      font-size: 20px;
-      background: #ddd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d4af37;
+  background: black;
+  color: #d4af37;
+  font-size: 20px;
+  cursor: pointer;
     }
 
     .total {
@@ -96,17 +119,20 @@
 .buy {
   display: block;
   text-align: center;
-  text-decoration: none;
-  background: linear-gradient(145deg, #22c55e, #15803d);
-  color: white;
+  background: #1a1a1a;
+  border: 1px solid #d4af37;
+  color: #d4af37;
   padding: 12px;
   border-radius: 14px;
   font-weight: bold;
-  border: none;
-  box-shadow: 
-    0 6px 0 #166534,
-    0 8px 15px rgba(0,0,0,0.2);
-  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.top-buttons a:hover,
+.buy:hover {
+  background: #d4af37;
+  color: black;
 }
 
 .top-buttons a:active,
@@ -193,13 +219,13 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #16a34a;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
+  background: linear-gradient(145deg, #d4af37, #b8860b);
+  color: black;
+  padding: 8px 18px;
+  border-radius: 25px;
   font-weight: bold;
-  z-index: 5;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(212,175,55,0.4);
 }
 
 /* MODAL */
@@ -214,20 +240,24 @@
 }
 
 .bonus-content {
-  background: white;
+  background: #1a1a1a;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 18px;
   width: 95%;
   max-width: 500px;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
+  border: 1px solid #d4af37;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  color: #f5f5f5;
 }
 
 .closeBonus {
   align-self: flex-end;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
+  color: #d4af37;
 }
 
 /* Scroll pastga tushishi uchun */
@@ -243,16 +273,49 @@ table {
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 6px;
+  border: 1px solid #333;
+  padding: 8px;
   text-align: center;
   font-size: 13px;
 }
 
+td {
+  color: #ccc;
+}
+
 th {
-  background: #16a34a;
-  color: white;
-    }
+  background: #111;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+    
+    tbody tr:nth-child(1) td {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(2) td {
+  color: #c0c0c0;
+}
+
+tbody tr:nth-child(3) td {
+  color: #cd7f32;
+}
+
+    .openBrowser {
+  background: #1a1a1a;
+  border: 1px solid #d4af37;
+  color: #ccc;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.openBrowser strong {
+  color: #d4af37;
+}
+    
   </style>
 </head>
 <body>
@@ -295,7 +358,8 @@ th {
   </div>
 </div>
 
-<div id="openBrowser" style="background:#b0b3af;8padding:12px;border-radius:10px;margin-top:10px;font-size:14px;">
+<div id="openBrowser" 
+class="openBrowser"
 Егер WhatsApp ашылмаса, оң жақ жоғарыдағы үш нүктені ... басып, 
 <strong>"Браузерде ашу"</strong> таңдаңыз.
 </div>
@@ -519,12 +583,15 @@ let customers = [
 function renderTable() {
   bonusTable.innerHTML = "";
 
-  customers.forEach((customer, index) => {
+  // 1️⃣ Zakaz bo‘yicha kamayish tartibida sort
+  let sortedCustomers = [...customers].sort((a, b) => b.orders - a.orders);
+
+  sortedCustomers.forEach((customer, index) => {
     let points = customer.orders * 25;
 
     bonusTable.innerHTML += `
       <tr>
-        <td>${index + 1}</td>
+        <td><b>${index + 1}</b></td>
         <td>${customer.name}</td>
         <td>${customer.orders}</td>
         <td>${points}</td>
@@ -532,7 +599,7 @@ function renderTable() {
     `;
   });
 
-  // pastga tushishi uchun
+  // Pastga tushib ko‘rish uchun
   bonusTable.parentElement.scrollTop = bonusTable.parentElement.scrollHeight;
 }
 
